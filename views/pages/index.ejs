@@ -1,39 +1,37 @@
 <%- include('../partials/pageHead') -%>
 <body>
-  <div class="header header-fixed unselectable header-animated">
-    <div class="header-brand">
-       <div class="nav-item no-hover">
-          <h6 class="title">My App</h6>
-       </div>
-       <div class="nav-item nav-btn" id="header-btn"> <span></span> <span></span> <span></span> </div>
-    </div>
-    <div class="header-nav" id="header-menu">
-       <div class="nav-left">
-          <div class="nav-item text-center"> <a href="#"> <span class="icon"> <i class="fab fa-wrapper fa-twitter" aria-hidden="true"></i> </span> </a> </div>
-       </div>
-       <div class="nav-right">
-          <div class="nav-item has-sub toggle-hover" id="dropdown">
-             <a class="nav-dropdown-link">Menu</a> 
-             <ul class="dropdown-menu dropdown-animated" role="menu">
-                <li role="menu-item"><a href="#">First Item</a></li>
-                <li role="menu-item"><a href="#">Second Item</a></li>
-                <li role="menu-item"><a href="#">Third Item</a></li>
-             </ul>
-          </div>
-       </div>
-    </div>
- </div>
- <section class="section">
-    <div class="hero fullscreen">
-       <div class="hero-body">
-          <div class="content">
-             <div class="text-center">
-                <h1>👋 Hello world!</h1>
-                <h6 class="font-alt font-light">A webpage powered by <b>Cirrus.</b></h6>
-             </div>
-          </div>
-       </div>
-    </div>
- </section>
+   <h1>Sponsor page</h1>
+   <table class="table">
+      <thead>
+        <tr>
+          <th>Actions</th>
+          <th>Ramadan date</th>
+          <th>Date</th>
+          <th>Sponsor name</th>
+          <th>Catering by Sponsor?</th>
+        </tr>
+      </thead>
+      <tbody>
+         <!-- loop over 30 times -->
+         <% for(let x = 0; x <= 29; x++) { %>
+            <tr>
+               <td><a href="/day/<%= (x+1) %>">Edit</a></td>
+               <td><%= x+1 %></td>
+               <td><%= dates[x] %></td>
+               <td>
+                  <% content.forEach((sponsor) => { %>
+                     <%= (sponsor.rDate == (x+1)) ? sponsor.name : "" %>
+                  <% }); %>
+               </td>
+               <td>
+                  <% content.forEach((sponsor) => { %>
+                     <%= (sponsor.rDate == (x+1)) ? sponsor.cateringBySponsor : "" %>
+                  <% }); %>
+               </td>
+            </tr>
+         <% } %> 
+          <!-- loop over 30 times -->
+      </tbody>
+   </table>
 </body>
 <%- include('../partials/pageTail') -%>
