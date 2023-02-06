@@ -65,7 +65,7 @@ app.route("/")
   .get(async (req,res) => {
     try{
       const data = await Sponsor.find({});
-      console.log(data);
+      //console.log(data);
       res.render("pages/index", {content: data, dates: dateDisplay});
     } catch (error) {
       console.log(error);
@@ -96,22 +96,34 @@ app.route("/sponsor")
       const dayDetails = await Sponsor.findOne({rDate: req.body.inputRDate});
       if(dayDetails){
         //update the dayDetails with new info
+        dayDetails.name = req.body.inputName;
+        dayDetails.cateringBySponsor = req.body.inputCateringBySponsor;
+        if(parseInt(req.body.inputCateringBySponsor) == 1){
+          dayDetails.caterer = req.body.inputCatererName;
+          dayDetails.cookingCost = req.body.inputCookingCost === "" ? 0 : req.body.inputCookingCost;
+          dayDetails.ingCost = req.body.inputIngredientsCost === "" ? 0 : req.body.inputIngredientsCost;
+          dayDetails.paid = req.body.checkPaid ? 1 : 0;
+          dayDetails.confirmed = req.body.checkConfirmed ? 1 : 0;
+        }
+        await dayDetails.save();
       } else {
         //create a new sponsor document
-        // const newSponsor = Sponsor({
-        //   rDate: ,
-        //   date: ,
-        //   name: ,
-        //   cateringBySponsor: ,
-        //   paid: ,
-        //   caterer: ,
-        //   cookingCost: ,
-        //   ingCost: ,
-        //   confirmed: 
-        // });
+        const newSponsor = new Sponsor({
+          rDate: req.body.inputRDate,
+          date: req.body.inputDate,
+          name: req.body.inputName,
+          cateringBySponsor: req.body.inputCateringBySponsor,
+          paid: req.body.checkPaid ? 1 : 0,
+          caterer: req.body.inputCatererName,
+          cookingCost: req.body.inputCookingCost === "" ? 0 : req.body.inputCookingCost,
+          ingCost: req.body.inputIngredientsCost === "" ? 0 : req.body.inputIngredientsCost,
+          confirmed: req.body.checkConfirmed ? 1 : 0
+        });
+        console.log(newSponsor);
+        await newSponsor.save();
       }
-      //res.redirect("/")
-      console.log(dayDetails);
+      res.redirect("/")
+      // console.log(dayDetails);
     } catch (error) {
       console.log(error);
     }

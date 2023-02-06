@@ -9,6 +9,7 @@
 
 input[readonly]{
   background-color: #E9ECEF;
+  pointer-events: none;
 }
 
 .cateringSection{
@@ -22,3 +23,8 @@ input[readonly]{
 h1{
   text-align: center;
 }
+
+/* body{
+  background: rgb(3,36,0);
+  background: linear-gradient(90deg, rgba(3,36,0,1) 0%, rgba(11,93,29,1) 25%, rgba(55,189,19,1) 50%, rgba(11,93,29,1) 75%, rgba(3,36,0,1) 100%);
+} */
