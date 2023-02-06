@@ -48,8 +48,8 @@ try{
   console.log(error);
 }
 const sponsorSchema = new mongoose.Schema({
-  rDate : Number,
-  date : Date,
+  rDate: Number,
+  date: String,
   name: String,
   cateringBySponsor: Boolean,
   paid: Boolean,
@@ -73,13 +73,17 @@ app.route("/")
   });
 
 app.route("/day/:rDate")
-  .get(async (req,res) => {
+  .post(async (req,res) => {
     try{
       const rDate = req.params.rDate;
       const dayDetails = await Sponsor.findOne({rDate: rDate});
       console.log(dayDetails);
+      let cateringBySponsorVal = 99;
+      if(dayDetails){
+        cateringBySponsorVal = dayDetails.cateringBySponsor;
+      } 
       console.log(dateDisplay[parseInt(rDate) - 1]);
-      res.render("pages/sponsorForm", {content: dayDetails, rDate: rDate, date: dateDisplay[parseInt(rDate) - 1]});
+      res.render("pages/sponsorForm", {content: dayDetails, CBS: cateringBySponsorVal, rDate: rDate, date: dateDisplay[parseInt(rDate) - 1]});
     } catch (error) {
       console.log(error);
     }
@@ -87,8 +91,30 @@ app.route("/day/:rDate")
 
 app.route("/sponsor")
   .post(async (req,res) => {
-    console.log(req.body);
-    //res.redirect("/")
+    try{
+      console.log(req.body);
+      const dayDetails = await Sponsor.findOne({rDate: req.body.inputRDate});
+      if(dayDetails){
+        //update the dayDetails with new info
+      } else {
+        //create a new sponsor document
+        // const newSponsor = Sponsor({
+        //   rDate: ,
+        //   date: ,
+        //   name: ,
+        //   cateringBySponsor: ,
+        //   paid: ,
+        //   caterer: ,
+        //   cookingCost: ,
+        //   ingCost: ,
+        //   confirmed: 
+        // });
+      }
+      //res.redirect("/")
+      console.log(dayDetails);
+    } catch (error) {
+      console.log(error);
+    }
   });
 
 app.listen(process.env.PORT || 3000, () => console.log("Server is running on port 3000"));

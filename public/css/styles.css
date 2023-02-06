@@ -3,8 +3,8 @@
 }
 
 .container{
-  /* width: 60%;
-  margin: auto; */
+  width: 90%;
+  margin: auto;
 }
 
 input[readonly]{
@@ -13,4 +13,12 @@ input[readonly]{
 
 .cateringSection{
   display: none;
+}
+
+.fa-save, .fa-edit{
+  padding-right: 5px;
+}
+
+h1{
+  text-align: center;
 }

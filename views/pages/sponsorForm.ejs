@@ -43,17 +43,27 @@
             <input type="number" name="inputIngredientsCost" step="0.01" class="form-control" id="inputIngredientsCost">
           </div>
         </div>
-        <div class="col-12 cateringSection">
-          <div class="form-check">
+        <div class="cateringSection">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="checkPaid" name="checkPaid">
+            <label class="form-check-label" for="checkPaid">
+              Paid?
+            </label>
+          </div>
+          <div class="form-check form-check-inline">
             <input class="form-check-input" type="checkbox" id="checkConfirmed" name="checkConfirmed">
             <label class="form-check-label" for="checkConfirmed">
               Confirmed
             </label>
           </div>
         </div>
-
         <div class="col-12">
-          <button type="submit" class="btn btn-primary" id="btnSave">Save</button>
+          <% if(CBS === 99){ %>
+            <button type="submit" class="btn btn-primary" id="btnSave" disabled><i class="fa fa-save" ></i> Save</button>
+          <% } else { %>
+            <button type="submit" class="btn btn-primary" id="btnSave"><i class="fa fa-save" ></i> Save</button>
+          <% } %>
+          
         </div>
       </form>
    </div>
