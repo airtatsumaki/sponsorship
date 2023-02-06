@@ -4,57 +4,94 @@
    <div class="container">
       <form action="/sponsor" method="post" class="row g-3">
          <div class="col-md-6">
-           <label for="inputRDate" class="form-label">Ramadan Date</label>
-           <input class="form-control" name="inputRDate" id="inputRDate" value="<%= rDate %>" readonly>
+            <label for="inputRDate" class="form-label">Ramadan Date</label>
+            <input class="form-control" name="inputRDate" id="inputRDate" value="<%= rDate %>" readonly>
          </div>
          <div class="col-md-6">
-           <label for="inputDate" class="form-label">Date</label>
-           <input class="form-control" name="inputDate" id="inputDate" value="<%= date %>" readonly>  
+            <label for="inputDate" class="form-label">Date</label>
+            <input class="form-control" name="inputDate" id="inputDate" value="<%= date %>" readonly>  
          </div>
          <div class="col-8">
-           <label for="inputName" class="form-label">Sponsor's name</label>
-           <input type="text" name="inputName" class="form-control" id="inputName" placeholder="Enter name...">
+            <label for="inputName" class="form-label">Sponsor's name</label>
+            <% if(locals.content) { %>
+              <input type="text" name="inputName" value="<%= content.name %>" class="form-control" id="inputName" placeholder="Enter name...">
+            <% } else { %>
+              <input type="text" name="inputName" class="form-control" id="inputName" placeholder="Enter name...">
+            <% } %>
          </div>
          <div class="col-md-4">
-          <label for="inputCateringBySponsor" class="form-label">Catering By Sponsor?</label>
-          <select id="inputCateringBySponsor" class="form-select" name="inputCateringBySponsor">
-            <option selected value="99">Choose...</option>
-            <option value="1">Yes</option>
-            <option value="0">No</option>
-          </select>
+            <label for="inputCateringBySponsor" class="form-label">Catering By Sponsor?</label>
+            <select id="inputCateringBySponsor" class="form-select" name="inputCateringBySponsor">
+              <% if(locals.content) { %>
+                <% if(content.cateringBySponsor === true) { %>
+                  <option value="99">Choose...</option>
+                  <option selected value="1">Yes</option>
+                  <option value="0">No</option>
+                <% } else if (content.cateringBySponsor === false) { %>
+                  <option value="99">Choose...</option>
+                  <option value="1">Yes</option>
+                  <option selected value="0">No</option>
+              <% } } else { %>
+                <option selected value="99">Choose...</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+              <% } %>
+            </select>
         </div>
 
         <div class="col-md-12 cateringSection">
           <hr>
           <label for="inputCatererName" class="form-label">Caterer Name</label>
-          <input type="text" name="inputCatererName" class="form-control" id="inputCatererName" placeholder="Enter name...">
+          <% if(locals.content) { %>
+            <input type="text" value="<%= content.caterer %>" name="inputCatererName" class="form-control" id="inputCatererName" placeholder="Enter name...">
+          <% } else { %>
+            <input type="text" name="inputCatererName" class="form-control" id="inputCatererName" placeholder="Enter name...">
+          <% } %>
         </div>
         <div class="col-md-6 cateringSection">
           <label for="inputCookingCost" class="form-label">Cooking cost</label>
           <div class="input-group md-6">
             <span class="input-group-text">£</span>
-            <input type="number" name="inputCookingCost" step="0.01" class="form-control" id="inputCookingCost">
+            <% if(locals.content) { %>
+              <input type="number" value="<%= content.cookingCost %>" name="inputCookingCost" step="0.01" class="form-control" id="inputCookingCost">
+            <% } else { %>
+              <input type="number" name="inputCookingCost" step="0.01" class="form-control" id="inputCookingCost">
+            <% }%>
           </div>
         </div>
         <div class="col-md-6 cateringSection">
           <label for="inputIngredientCost" class="form-label">Ingredient cost</label>
           <div class="input-group md-6">
             <span class="input-group-text">£</span>
-            <input type="number" name="inputIngredientsCost" step="0.01" class="form-control" id="inputIngredientsCost">
+            <% if(locals.content) { %>
+              <input type="number" value="<%= content.ingCost %>" name="inputIngredientsCost" step="0.01" class="form-control" id="inputIngredientsCost">
+            <% } else { %>
+              <input type="number" name="inputIngredientsCost" step="0.01" class="form-control" id="inputIngredientsCost">
+            <% }%>
           </div>
         </div>
         <div class="cateringSection">
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="checkPaid" name="checkPaid">
-            <label class="form-check-label" for="checkPaid">
-              Paid?
-            </label>
+            <% if(locals.content) { %>
+              <% if(content.paid === true) { %>
+                <input class="form-check-input" type="checkbox" id="checkPaid" name="checkPaid" value="true" checked>
+                <% } else if (content.paid === false) { %>
+                  <input class="form-check-input" type="checkbox" id="checkPaid" name="checkPaid" value="true">
+                <% } } else { %>
+                <input class="form-check-input" type="checkbox" id="checkPaid" name="checkPaid" value="true">
+            <% } %>
+            <label class="form-check-label" for="checkPaid">Paid</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="checkConfirmed" name="checkConfirmed">
-            <label class="form-check-label" for="checkConfirmed">
-              Confirmed
-            </label>
+            <% if(locals.content) { %>
+              <% if(content.confirmed === true) { %>
+                <input class="form-check-input" type="checkbox" id="checkConfirmed" name="checkConfirmed" checked>
+              <% } else if (content.confirmed === false) { %>
+                <input class="form-check-input" type="checkbox" id="checkConfirmed" name="checkConfirmed">
+              <% } } else { %>
+                <input class="form-check-input" type="checkbox" id="checkConfirmed" name="checkConfirmed">
+            <% } %>
+            <label class="form-check-label" for="checkConfirmed">Confirmed</label>
           </div>
         </div>
         <div class="col-12">
@@ -63,7 +100,6 @@
           <% } else { %>
             <button type="submit" class="btn btn-primary" id="btnSave"><i class="fa fa-save" ></i> Save</button>
           <% } %>
-          
         </div>
       </form>
    </div>

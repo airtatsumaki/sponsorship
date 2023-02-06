@@ -1,3 +1,7 @@
+if($('#inputCateringBySponsor').val() == 1){
+  $(".cateringSection").show();
+}
+
 $('#inputCateringBySponsor').on('change', function() {
   parseInt($(this).val()) == 1 ? $(".cateringSection").show() : $(".cateringSection").hide();
 });

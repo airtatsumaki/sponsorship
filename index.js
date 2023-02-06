@@ -104,6 +104,12 @@ app.route("/sponsor")
           dayDetails.ingCost = req.body.inputIngredientsCost === "" ? 0 : req.body.inputIngredientsCost;
           dayDetails.paid = req.body.checkPaid ? 1 : 0;
           dayDetails.confirmed = req.body.checkConfirmed ? 1 : 0;
+        } else {
+          dayDetails.caterer = "";
+          dayDetails.cookingCost = null;
+          dayDetails.ingCost = null;
+          dayDetails.paid = 0;
+          dayDetails.confirmed = 0;
         }
         await dayDetails.save();
       } else {
@@ -123,7 +129,7 @@ app.route("/sponsor")
         await newSponsor.save();
       }
       res.redirect("/")
-      // console.log(dayDetails);
+      console.log(dayDetails);
     } catch (error) {
       console.log(error);
     }
