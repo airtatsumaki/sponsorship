@@ -4,47 +4,57 @@
    <div class="container">
       <form action="/sponsor" method="post" class="row g-3">
          <div class="col-md-6">
-           <label for="inputEmail4" class="form-label">Email</label>
-           <input type="email" class="form-control" id="inputEmail4">
+           <label for="inputRDate" class="form-label">Ramadan Date</label>
+           <input class="form-control" name="inputRDate" id="inputRDate" value="<%= rDate %>" readonly>
          </div>
          <div class="col-md-6">
-           <label for="inputPassword4" class="form-label">Password</label>
-           <input type="password" class="form-control" id="inputPassword4">
+           <label for="inputDate" class="form-label">Date</label>
+           <input class="form-control" name="inputDate" id="inputDate" value="<%= date %>" readonly>  
          </div>
-         <div class="col-12">
-           <label for="inputAddress" class="form-label">Address</label>
-           <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-         </div>
-         <div class="col-12">
-           <label for="inputAddress2" class="form-label">Address 2</label>
-           <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-         </div>
-         <div class="col-md-6">
-           <label for="inputCity" class="form-label">City</label>
-           <input type="text" class="form-control" id="inputCity">
+         <div class="col-8">
+           <label for="inputName" class="form-label">Sponsor's name</label>
+           <input type="text" name="inputName" class="form-control" id="inputName" placeholder="Enter name...">
          </div>
          <div class="col-md-4">
-           <label for="inputState" class="form-label">State</label>
-           <select id="inputState" class="form-select">
-             <option selected>Choose...</option>
-             <option>...</option>
-           </select>
-         </div>
-         <div class="col-md-2">
-           <label for="inputZip" class="form-label">Zip</label>
-           <input type="text" class="form-control" id="inputZip">
-         </div>
-         <div class="col-12">
-           <div class="form-check">
-             <input class="form-check-input" type="checkbox" id="gridCheck">
-             <label class="form-check-label" for="gridCheck">
-               Check me out
-             </label>
-           </div>
-         </div>
-         <div class="col-12">
-           <button type="submit" class="btn btn-primary">Sign in</button>
-         </div>
+          <label for="inputCateringBySponsor" class="form-label">Catering By Sponsor?</label>
+          <select id="inputCateringBySponsor" class="form-select" name="inputCateringBySponsor">
+            <option selected value="99">Choose...</option>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+          </select>
+        </div>
+
+        <div class="col-md-12 cateringSection">
+          <hr>
+          <label for="inputCatererName" class="form-label">Caterer Name</label>
+          <input type="text" name="inputCatererName" class="form-control" id="inputCatererName" placeholder="Enter name...">
+        </div>
+        <div class="col-md-6 cateringSection">
+          <label for="inputCookingCost" class="form-label">Cooking cost</label>
+          <div class="input-group md-6">
+            <span class="input-group-text">£</span>
+            <input type="number" name="inputCookingCost" step="0.01" class="form-control" id="inputCookingCost">
+          </div>
+        </div>
+        <div class="col-md-6 cateringSection">
+          <label for="inputIngredientCost" class="form-label">Ingredient cost</label>
+          <div class="input-group md-6">
+            <span class="input-group-text">£</span>
+            <input type="number" name="inputIngredientsCost" step="0.01" class="form-control" id="inputIngredientsCost">
+          </div>
+        </div>
+        <div class="col-12 cateringSection">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="checkConfirmed" name="checkConfirmed">
+            <label class="form-check-label" for="checkConfirmed">
+              Confirmed
+            </label>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary" id="btnSave">Save</button>
+        </div>
       </form>
    </div>
 

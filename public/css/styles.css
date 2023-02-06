@@ -6,3 +6,11 @@
   /* width: 60%;
   margin: auto; */
 }
+
+input[readonly]{
+  background-color: #E9ECEF;
+}
+
+.cateringSection{
+  display: none;
+}

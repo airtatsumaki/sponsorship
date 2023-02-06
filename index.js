@@ -5,7 +5,7 @@ require('dotenv').config();
 
 const app = express();
 // instead of body-parser
-app.use(express.urlencoded({extended: true})); 
+app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
 app.set("view engine", "ejs");
@@ -78,7 +78,8 @@ app.route("/day/:rDate")
       const rDate = req.params.rDate;
       const dayDetails = await Sponsor.findOne({rDate: rDate});
       console.log(dayDetails);
-      res.render("pages/sponsorForm", {content: dayDetails});
+      console.log(dateDisplay[parseInt(rDate) - 1]);
+      res.render("pages/sponsorForm", {content: dayDetails, rDate: rDate, date: dateDisplay[parseInt(rDate) - 1]});
     } catch (error) {
       console.log(error);
     }
@@ -86,8 +87,8 @@ app.route("/day/:rDate")
 
 app.route("/sponsor")
   .post(async (req,res) => {
-    console.log("posted");
-    res.redirect("/")
+    console.log(req.body);
+    //res.redirect("/")
   });
 
 app.listen(process.env.PORT || 3000, () => console.log("Server is running on port 3000"));
