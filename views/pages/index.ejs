@@ -1,15 +1,15 @@
 <%- include('../partials/pageHead') -%>
 <body>
-   <h1>Sponsor page</h1>
-   <div class="container">
-      <table class="table table-sm">
+   <h1>Daily Sponsors</h1>
+   <div class="container table-responsive-sm">
+      <table class="table table-bordered text-center">
          <thead>
            <tr>
-             <th>Actions</th>
-             <th>Ramadan date</th>
-             <th>Date</th>
-             <th>Sponsor name</th>
-             <th>Catering by Sponsor?</th>
+             <th scope="col">Actions</th>
+             <th scope="col">Ramadan <br />date</th>
+             <th scope="col">Date</th>
+             <th scope="col">Sponsor <br />name</th>
+             <th scope="col">Catering by <br />Sponsor?</th>
            </tr>
          </thead>
          <tbody>
@@ -23,7 +23,7 @@
                         </button>
                      </form>
                   </td>
-                  <td><%= x+1 %></td>
+                  <th scope="row"><%= x+1 %></td>
                   <td><%= dates[x] %></td>
                   <td>
                      <% content.forEach((sponsor) => { %>

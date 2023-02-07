@@ -1,8 +1,12 @@
 <%- include('../partials/pageHead') -%>
 <body>
-   <h1>Edit Sponsor</h1>
+   <h1>Sponsor Details</h1>
    <div class="container">
+      
       <form action="/sponsor" method="post" class="row g-3">
+        <div class="col-12">
+          <button class="btn btn-primary" id="btnHome" name="btnHome" value="home"><i class="fa fa-house"></i> Home</button>
+        </div>
          <div class="col-md-6">
             <label for="inputRDate" class="form-label">Ramadan Date</label>
             <input class="form-control" name="inputRDate" id="inputRDate" value="<%= rDate %>" readonly>
@@ -13,7 +17,7 @@
          </div>
          <div class="col-8">
             <label for="inputName" class="form-label">Sponsor's name</label>
-            <% if(locals.content) { %>
+            <% if(content) { %>
               <input type="text" name="inputName" value="<%= content.name %>" class="form-control" id="inputName" placeholder="Enter name...">
             <% } else { %>
               <input type="text" name="inputName" class="form-control" id="inputName" placeholder="Enter name...">
@@ -22,7 +26,7 @@
          <div class="col-md-4">
             <label for="inputCateringBySponsor" class="form-label">Catering By Sponsor?</label>
             <select id="inputCateringBySponsor" class="form-select" name="inputCateringBySponsor">
-              <% if(locals.content) { %>
+              <% if(content) { %>
                 <% if(content.cateringBySponsor === true) { %>
                   <option value="99">Choose...</option>
                   <option selected value="1">Yes</option>
@@ -42,7 +46,7 @@
         <div class="col-md-12 cateringSection">
           <hr>
           <label for="inputCatererName" class="form-label">Caterer Name</label>
-          <% if(locals.content) { %>
+          <% if(content) { %>
             <input type="text" value="<%= content.caterer %>" name="inputCatererName" class="form-control" id="inputCatererName" placeholder="Enter name...">
           <% } else { %>
             <input type="text" name="inputCatererName" class="form-control" id="inputCatererName" placeholder="Enter name...">
@@ -52,7 +56,7 @@
           <label for="inputCookingCost" class="form-label">Cooking cost</label>
           <div class="input-group md-6">
             <span class="input-group-text">£</span>
-            <% if(locals.content) { %>
+            <% if(content) { %>
               <input type="number" value="<%= content.cookingCost %>" name="inputCookingCost" step="0.01" class="form-control" id="inputCookingCost">
             <% } else { %>
               <input type="number" name="inputCookingCost" step="0.01" class="form-control" id="inputCookingCost">
@@ -63,7 +67,7 @@
           <label for="inputIngredientCost" class="form-label">Ingredient cost</label>
           <div class="input-group md-6">
             <span class="input-group-text">£</span>
-            <% if(locals.content) { %>
+            <% if(content) { %>
               <input type="number" value="<%= content.ingCost %>" name="inputIngredientsCost" step="0.01" class="form-control" id="inputIngredientsCost">
             <% } else { %>
               <input type="number" name="inputIngredientsCost" step="0.01" class="form-control" id="inputIngredientsCost">
@@ -72,7 +76,7 @@
         </div>
         <div class="cateringSection">
           <div class="form-check form-check-inline">
-            <% if(locals.content) { %>
+            <% if(content) { %>
               <% if(content.paid === true) { %>
                 <input class="form-check-input" type="checkbox" id="checkPaid" name="checkPaid" value="true" checked>
                 <% } else if (content.paid === false) { %>
@@ -83,7 +87,7 @@
             <label class="form-check-label" for="checkPaid">Paid</label>
           </div>
           <div class="form-check form-check-inline">
-            <% if(locals.content) { %>
+            <% if(content) { %>
               <% if(content.confirmed === true) { %>
                 <input class="form-check-input" type="checkbox" id="checkConfirmed" name="checkConfirmed" checked>
               <% } else if (content.confirmed === false) { %>
@@ -95,10 +99,10 @@
           </div>
         </div>
         <div class="col-12">
-          <% if(CBS === 99){ %>
-            <button type="submit" class="btn btn-primary" id="btnSave" disabled><i class="fa fa-save" ></i> Save</button>
+          <% if(content) { %>
+            <button type="submit" class="btn btn-primary" name="btnSave" id="btnSave" value="update"><i class="fa fa-save" ></i> Save</button>
           <% } else { %>
-            <button type="submit" class="btn btn-primary" id="btnSave"><i class="fa fa-save" ></i> Save</button>
+            <button type="submit" class="btn btn-primary" name="btnSave" id="btnSave" disabled value="update"><i class="fa fa-save" ></i> Save</button>
           <% } %>
         </div>
       </form>

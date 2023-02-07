@@ -3,7 +3,7 @@
 }
 
 .container{
-  width: 90%;
+  width: 70%;
   margin: auto;
 }
 
@@ -16,15 +16,33 @@ input[readonly]{
   display: none;
 }
 
-.fa-save, .fa-edit{
+.fa-save, .fa-edit, .fa-house{
   padding-right: 5px;
 }
 
 h1{
   text-align: center;
+  padding: 20px 0px;
 }
 
-/* body{
-  background: rgb(3,36,0);
-  background: linear-gradient(90deg, rgba(3,36,0,1) 0%, rgba(11,93,29,1) 25%, rgba(55,189,19,1) 50%, rgba(11,93,29,1) 75%, rgba(3,36,0,1) 100%);
+thead{
+  border-bottom: black;
+}
+
+body{
+  /* background: rgb(3,36,0);
+  background: linear-gradient(90deg, rgba(3,36,0,1) 0%, rgba(11,93,29,1) 25%, rgba(55,189,19,1) 50%, rgba(11,93,29,1) 75%, rgba(3,36,0,1) 100%); */
+  font-family: 'Montserrat', sans-serif;
+  /* background: #87D68D; */
+  /* #92c396 */
+  /* color:white; */
+}
+
+/* .table-bordered {
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+} */
+
+/* td, th, tr{
+  background-color: #92c396
 } */

@@ -42,11 +42,17 @@ for (i = 0; i < dateArray.length; i ++ ) {
   dateDisplay.push(dateArray[i].toLocaleString("en-GB", options));
   // console.log(dateArray[i].toLocaleString("en-GB", options));
 }
-try{
-  mongoose.connect('mongodb://127.0.0.1:27017/iftariSponsorship');
-} catch (error) {
-  console.log(error);
-}
+const url = `mongodb+srv://naz:${process.env.PASSWORD}@cluster0.lgbc6oy.mongodb.net/${process.env.DBCOLLECTION}`;
+
+mongoose.connect(url).
+    catch(error => console.log(error));
+
+// try{
+  
+//   // await mongoose.connect('mongodb://127.0.0.1:27017/iftariSponsorship');
+// } catch (error) {
+//   console.log(error);
+// }
 const sponsorSchema = new mongoose.Schema({
   rDate: Number,
   date: String,
@@ -78,12 +84,8 @@ app.route("/day/:rDate")
       const rDate = req.params.rDate;
       const dayDetails = await Sponsor.findOne({rDate: rDate});
       console.log(dayDetails);
-      let cateringBySponsorVal = 99;
-      if(dayDetails){
-        cateringBySponsorVal = dayDetails.cateringBySponsor;
-      } 
       console.log(dateDisplay[parseInt(rDate) - 1]);
-      res.render("pages/sponsorForm", {content: dayDetails, CBS: cateringBySponsorVal, rDate: rDate, date: dateDisplay[parseInt(rDate) - 1]});
+      res.render("pages/sponsorForm", {content: dayDetails, rDate: rDate, date: dateDisplay[parseInt(rDate) - 1]});
     } catch (error) {
       console.log(error);
     }
@@ -93,42 +95,44 @@ app.route("/sponsor")
   .post(async (req,res) => {
     try{
       console.log(req.body);
-      const dayDetails = await Sponsor.findOne({rDate: req.body.inputRDate});
-      if(dayDetails){
-        //update the dayDetails with new info
-        dayDetails.name = req.body.inputName;
-        dayDetails.cateringBySponsor = req.body.inputCateringBySponsor;
-        if(parseInt(req.body.inputCateringBySponsor) == 1){
-          dayDetails.caterer = req.body.inputCatererName;
-          dayDetails.cookingCost = req.body.inputCookingCost === "" ? 0 : req.body.inputCookingCost;
-          dayDetails.ingCost = req.body.inputIngredientsCost === "" ? 0 : req.body.inputIngredientsCost;
-          dayDetails.paid = req.body.checkPaid ? 1 : 0;
-          dayDetails.confirmed = req.body.checkConfirmed ? 1 : 0;
+      if(req.body.btnSave){
+        const dayDetails = await Sponsor.findOne({rDate: req.body.inputRDate});
+        if(dayDetails){
+          //update the dayDetails with new info
+          dayDetails.name = req.body.inputName;
+          dayDetails.cateringBySponsor = req.body.inputCateringBySponsor;
+          if(parseInt(req.body.inputCateringBySponsor) == 1){
+            dayDetails.caterer = req.body.inputCatererName;
+            dayDetails.cookingCost = req.body.inputCookingCost === "" ? 0 : req.body.inputCookingCost;
+            dayDetails.ingCost = req.body.inputIngredientsCost === "" ? 0 : req.body.inputIngredientsCost;
+            dayDetails.paid = req.body.checkPaid ? 1 : 0;
+            dayDetails.confirmed = req.body.checkConfirmed ? 1 : 0;
+          } else {
+            dayDetails.caterer = "";
+            dayDetails.cookingCost = null;
+            dayDetails.ingCost = null;
+            dayDetails.paid = 0;
+            dayDetails.confirmed = 0;
+          }
+          await dayDetails.save();
         } else {
-          dayDetails.caterer = "";
-          dayDetails.cookingCost = null;
-          dayDetails.ingCost = null;
-          dayDetails.paid = 0;
-          dayDetails.confirmed = 0;
+          //create a new sponsor document
+          const newSponsor = new Sponsor({
+            rDate: req.body.inputRDate,
+            date: req.body.inputDate,
+            name: req.body.inputName,
+            cateringBySponsor: req.body.inputCateringBySponsor,
+            paid: req.body.checkPaid ? 1 : 0,
+            caterer: req.body.inputCatererName,
+            cookingCost: req.body.inputCookingCost === "" ? 0 : req.body.inputCookingCost,
+            ingCost: req.body.inputIngredientsCost === "" ? 0 : req.body.inputIngredientsCost,
+            confirmed: req.body.checkConfirmed ? 1 : 0
+          });
+          console.log(newSponsor);
+          await newSponsor.save();
         }
-        await dayDetails.save();
-      } else {
-        //create a new sponsor document
-        const newSponsor = new Sponsor({
-          rDate: req.body.inputRDate,
-          date: req.body.inputDate,
-          name: req.body.inputName,
-          cateringBySponsor: req.body.inputCateringBySponsor,
-          paid: req.body.checkPaid ? 1 : 0,
-          caterer: req.body.inputCatererName,
-          cookingCost: req.body.inputCookingCost === "" ? 0 : req.body.inputCookingCost,
-          ingCost: req.body.inputIngredientsCost === "" ? 0 : req.body.inputIngredientsCost,
-          confirmed: req.body.checkConfirmed ? 1 : 0
-        });
-        console.log(newSponsor);
-        await newSponsor.save();
       }
-      res.redirect("/")
+      res.redirect("/");
       console.log(dayDetails);
     } catch (error) {
       console.log(error);
