@@ -101,7 +101,7 @@ app.route("/sponsor")
           //update the dayDetails with new info
           dayDetails.name = req.body.inputName;
           dayDetails.cateringBySponsor = req.body.inputCateringBySponsor;
-          if(parseInt(req.body.inputCateringBySponsor) == 1){
+          if(parseInt(req.body.inputCateringBySponsor) == 0){
             dayDetails.caterer = req.body.inputCatererName;
             dayDetails.cookingCost = req.body.inputCookingCost === "" ? 0 : req.body.inputCookingCost;
             dayDetails.ingCost = req.body.inputIngredientsCost === "" ? 0 : req.body.inputIngredientsCost;

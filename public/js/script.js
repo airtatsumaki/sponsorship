@@ -1,14 +1,14 @@
-if($('#inputCateringBySponsor').val() == 1){
+if($('#inputCateringBySponsor').val() == 0){
   $(".cateringSection").show();
 }
 
 $('#inputCateringBySponsor').on('change', function() {
-  parseInt($(this).val()) == 1 ? $(".cateringSection").show() : $(".cateringSection").hide();
+  parseInt($(this).val()) == 0 ? $(".cateringSection").show() : $(".cateringSection").hide();
 });
 
 // if #inputCateringBySponsor val == 99, disable save button
 $('#inputCateringBySponsor').on('change', function() {
-  parseInt($(this).val()) ==99 ? $("#btnSave").prop('disabled', true): $("#btnSave").prop('disabled', false);
+  parseInt($(this).val()) == 99 ? $("#btnSave").prop('disabled', true): $("#btnSave").prop('disabled', false);
 });
 
 //disable click on readonly
