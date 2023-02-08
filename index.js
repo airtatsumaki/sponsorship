@@ -78,6 +78,17 @@ app.route("/")
     }
   });
 
+app.route("/dev")
+  .get(async (req,res) => {
+    try{
+      const data = await Sponsor.find({});
+      //console.log(data);
+      res.render("pages/index-copy", {content: data, dates: dateDisplay});
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
 app.route("/day/:rDate")
   .post(async (req,res) => {
     try{
