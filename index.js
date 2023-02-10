@@ -83,7 +83,7 @@ app.route("/dev")
     try{
       const data = await Sponsor.find({});
       //console.log(data);
-      res.render("pages/index-copy", {content: data, dates: dateDisplay});
+      res.render("pages/index-old", {content: data, dates: dateDisplay});
     } catch (error) {
       console.log(error);
     }

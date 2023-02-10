@@ -1,45 +1,20 @@
 <%- include('../partials/pageHead') -%>
 <body>
    <h1>Daily Sponsors</h1>
-   <div class="container table-responsive-sm">
-      <table class="table table-bordered text-center">
-         <thead>
-           <tr>
-             <th scope="col">Actions</th>
-             <th scope="col">Ramadan <br />date</th>
-             <th scope="col">Date</th>
-             <th scope="col">Sponsor <br />name</th>
-             <th scope="col">Catering by <br />Sponsor?</th>
-           </tr>
-         </thead>
-         <tbody>
-            <!-- loop over 30 times -->
-            <% for(let x = 0; x <= 29; x++) { %>
-               <tr>
-                  <td>
-                     <form action="/day/<%= (x+1) %>" method="post">
-                        <button type="submit" class="btn btn-primary btn-sm">
-                           <i class="fa fa-edit"></i> Edit
-                        </button>
-                     </form>
-                  </td>
-                  <th scope="row"><%= x+1 %></td>
-                  <td><%= dates[x] %></td>
-                  <td>
-                     <% content.forEach((sponsor) => { %>
-                        <%= (sponsor.rDate == (x+1)) ? sponsor.name : "" %>
-                     <% }); %>
-                  </td>
-                  <td>
-                     <% content.forEach((sponsor) => { %>
-                        <%= (sponsor.rDate == (x+1)) ? sponsor.cateringBySponsor : "" %>
-                     <% }); %>
-                  </td>
-               </tr>
-            <% } %> 
-             <!-- loop over 30 times -->
-         </tbody>
-      </table>
+   <div class="container">
+      <% for(let x = 0; x <= 29; x++) { %>
+         <div class="card">
+            <div class="dayNumber"><%= x+1 %></div>
+            <div class="dateString"><%= dates[x] %></div>
+            <div class="editButton">
+               <form action="/day/<%= (x+1) %>" method="post">
+                  <button type="submit" class="editbtn btn btn-primary btn-sm">
+                     <i class="fa fa-edit"></i> Edit
+                  </button>
+               </form>
+            </div>
+         </div>
+      <% } %> 
    </div>
 </body>
 <%- include('../partials/pageTail') -%>
