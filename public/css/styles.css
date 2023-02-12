@@ -75,6 +75,10 @@ body{
   text-align: center;
 }
 
+.dateString.green{
+  color: green;
+}
+
 .editButton{
   position: absolute;
   text-align: center;
@@ -86,4 +90,40 @@ body{
 
 .editbtn{
   width: 90%;
+}
+
+@media screen and (max-width: 700px) {
+  .container.home{
+    padding-left: 70px;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .container.home{
+    padding-left: 65px;
+  }
+}
+
+@media screen and (max-width: 470px) {
+  .container.home{
+    padding-left: 57px;
+  }
+}
+
+@media screen and (max-width: 370px) {
+  .container.home{
+    padding-left: 120px;
+  }
+}
+
+@media screen and (max-width: 280px) {
+  .container.home{
+    padding-left: 78px;
+  }
+}
+
+@media screen and (max-width: 230px) {
+  .container.home{
+    padding-left: 55px;
+  }
 }

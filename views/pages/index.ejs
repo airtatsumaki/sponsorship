@@ -1,20 +1,24 @@
 <%- include('../partials/pageHead') -%>
 <body>
    <h1>Daily Sponsors</h1>
-   <div class="container">
-      <% for(let x = 0; x <= 29; x++) { %>
+   <div class="container home">
+      <% content.forEach(function(data){ %>
          <div class="card">
-            <div class="dayNumber"><%= x+1 %></div>
-            <div class="dateString"><%= dates[x] %></div>
+            <div class="dayNumber"><%= data.ramDate %></div>
+            <% if (Object.keys(data.sponsor).length === 0){ %>
+               <div class="dateString"><%= data.dayString %></div>
+            <% } else { %>
+               <div class="dateString green"><%= data.dayString %></div>
+            <% } %>
             <div class="editButton">
-               <form action="/day/<%= (x+1) %>" method="post">
+               <form action="/day/<%= data.ramDate %>" method="post">
                   <button type="submit" class="editbtn btn btn-primary btn-sm">
                      <i class="fa fa-edit"></i> Edit
                   </button>
                </form>
             </div>
          </div>
-      <% } %> 
+      <% }); %> 
    </div>
 </body>
 <%- include('../partials/pageTail') -%>

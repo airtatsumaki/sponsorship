@@ -42,17 +42,13 @@ for (i = 0; i < dateArray.length; i ++ ) {
   dateDisplay.push(dateArray[i].toLocaleString("en-GB", options));
   // console.log(dateArray[i].toLocaleString("en-GB", options));
 }
+
+
 const url = `mongodb+srv://naz:${process.env.PASSWORD}@cluster0.lgbc6oy.mongodb.net/${process.env.DBCOLLECTION}`;
 
 mongoose.connect(url).
     catch(error => console.log(error));
 
-// try{
-  
-//   // await mongoose.connect('mongodb://127.0.0.1:27017/iftariSponsorship');
-// } catch (error) {
-//   console.log(error);
-// }
 const sponsorSchema = new mongoose.Schema({
   rDate: Number,
   date: String,
@@ -72,7 +68,8 @@ app.route("/")
     try{
       const data = await Sponsor.find({});
       //console.log(data);
-      res.render("pages/index", {content: data, dates: dateDisplay});
+      const dayData = getCalendarDays(dateDisplay, data);
+      res.render("pages/index", {content: dayData});
     } catch (error) {
       console.log(error);
     }
@@ -83,7 +80,8 @@ app.route("/dev")
     try{
       const data = await Sponsor.find({});
       //console.log(data);
-      res.render("pages/index-old", {content: data, dates: dateDisplay});
+      const dayData = getCalendarDays(dateDisplay, data);
+      res.render("pages/indexV1", {content: dayData});
     } catch (error) {
       console.log(error);
     }
@@ -149,5 +147,23 @@ app.route("/sponsor")
       console.log(error);
     }
   });
+
+function getCalendarDays(dates, sponsorData){
+  let datesObj = [];
+  let index = 1;
+  dates.forEach(function(item){
+    datesObj.push({
+      ramDate: index,
+      dayString: item,
+      sponsor: {}
+    });
+    index++;
+  });
+  sponsorData.forEach(function(spon){
+    datesObj[parseInt(spon.rDate) - 1].sponsor = spon;
+  });
+  // console.log(datesObj);
+  return datesObj;
+}
 
 app.listen(process.env.PORT || 3000, () => console.log("Server is running on port 3000"));
