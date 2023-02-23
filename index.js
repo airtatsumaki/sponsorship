@@ -148,10 +148,10 @@ app.route("/sponsor")
           await newSponsor.save();
         }
       }
-      if(req.body.btnHome == "home"){
+      if(req.body.btnHome == "home" || req.body.btnSave == "home"){
         res.redirect("/");
       }
-      else if (req.body.btnHome == "admin"){
+      else if (req.body.btnHome == "admin" || req.body.btnSave == "admin"){
         res.redirect("/admin");
       }
       

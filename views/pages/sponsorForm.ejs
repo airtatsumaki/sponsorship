@@ -100,9 +100,9 @@
         </div>
         <div class="col-12">
           <% if(content) { %>
-            <button type="submit" class="btn btn-primary" name="btnSave" id="btnSave" value="update"><i class="fa fa-save" ></i> Save</button>
+            <button type="submit" class="btn btn-primary" name="btnSave" id="btnSave" value="<%= routePage %>"><i class="fa fa-save" ></i> Save</button>
           <% } else { %>
-            <button type="submit" class="btn btn-primary" name="btnSave" id="btnSave" disabled value="update"><i class="fa fa-save" ></i> Save</button>
+            <button type="submit" class="btn btn-primary" name="btnSave" id="btnSave" disabled value="<%= routePage %>"><i class="fa fa-save" ></i> Save</button>
           <% } %>
         </div>
       </form>
