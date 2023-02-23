@@ -1,0 +1,77 @@
+<%- include('../partials/pageHead') -%>
+<body>
+   <h1>Daily Sponsors</h1>
+   <div class="table-container table-responsive-sm">
+      <table class="table table-bordered text-center">
+         <thead>
+           <tr>
+             <th scope="col">Actions</th>
+             <th scope="col">Ramadan <br />date</th>
+             <th scope="col">Date</th>
+             <th scope="col">Sponsor <br />name</th>
+             <th scope="col">Catering by <br />Sponsor?</th>
+             <th scope="col">Caterer</th>
+             <th scope="col">Cooking Cost</th>
+             <th scope="col">Ingrient Cost</th>
+             <th scope="col">Paid?</th>
+             <th scope="col">Confirmed?</th>
+           </tr>
+         </thead>
+         <tbody>
+            <% content.forEach(function(data){ %>
+               <tr>
+                  <td class="table-button">
+                     <form action="/day/<%= data.ramDate %>" method="post">
+                        <button type="submit" class="btn btn-primary btn-sm" name="editButton" value="admin">
+                           <i class="fa fa-edit"></i> Edit
+                        </button>
+                     </form>
+                  </td>
+                  <td><%= data.ramDate %></td>
+                  <td><%= data.dayString %></td>
+                  <% if (Object.keys(data.sponsor).length > 0){ %>
+                     <td><%= data.sponsor.name %></td>
+                     <% if (data.sponsor.cateringBySponsor === true){ %>
+                        <td>Yes</td>
+                     <% } else { %>
+                        <td>No</td>
+                     <% } %>
+                     <td><%= data.sponsor.caterer %></td>
+                     <% if (data.sponsor.cateringBySponsor === true){ %>
+                        <td></td>
+                        <td></td>
+                     <% } else { %>
+                        <td><%= data.sponsor.cookingCost %></td>
+                        <td><%= data.sponsor.ingCost %></td>
+                     <% } %>
+                     <% if (data.sponsor.cateringBySponsor === true){ %>
+                        <td></td>
+                        <td></td>
+                     <% } else { %>
+                        <% if (data.sponsor.paid === true){ %>
+                           <td>Yes</td>
+                        <% } else { %>
+                           <td>No</td>
+                        <% } %>
+                        <% if (data.sponsor.confirmed === true){ %>
+                           <td>Yes</td>
+                        <% } else { %>
+                           <td>No</td>
+                        <% } %>
+                     <% } %>
+                  <% } else { %>
+                     <td></td>
+                     <td></td>
+                     <td></td>
+                     <td></td>
+                     <td></td>
+                     <td></td>
+                     <td></td>
+                  <% } %> 
+               </tr>
+            <% }); %>
+         </tbody>
+      </table>
+   </div>
+</body>
+<%- include('../partials/pageTail') -%>

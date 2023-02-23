@@ -11,6 +11,15 @@
   padding-bottom: 20px;
 }
 
+.table-container{
+  margin: auto;
+  padding: 0 5%;
+}
+
+td{
+  vertical-align: middle;
+}
+
 input[readonly]{
   background-color: #E9ECEF;
   pointer-events: none;

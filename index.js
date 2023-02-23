@@ -75,13 +75,13 @@ app.route("/")
     }
   });
 
-app.route("/dev")
+app.route("/admin")
   .get(async (req,res) => {
     try{
       const data = await Sponsor.find({});
       //console.log(data);
       const dayData = getCalendarDays(dateDisplay, data);
-      res.render("pages/indexV1", {content: dayData});
+      res.render("pages/admin", {content: dayData, nav: "admin"});
     } catch (error) {
       console.log(error);
     }
@@ -90,11 +90,17 @@ app.route("/dev")
 app.route("/day/:rDate")
   .post(async (req,res) => {
     try{
+      let routePage = "home";
+      console.log(req.body);
+      if(req.body.editButton == "admin"){
+        console.log("you came from admin route");
+        routePage = "admin";
+      }
       const rDate = req.params.rDate;
       const dayDetails = await Sponsor.findOne({rDate: rDate});
       console.log(dayDetails);
       console.log(dateDisplay[parseInt(rDate) - 1]);
-      res.render("pages/sponsorForm", {content: dayDetails, rDate: rDate, date: dateDisplay[parseInt(rDate) - 1]});
+      res.render("pages/sponsorForm", {content: dayDetails, rDate: rDate, date: dateDisplay[parseInt(rDate) - 1], routePage: routePage});
     } catch (error) {
       console.log(error);
     }
@@ -103,6 +109,7 @@ app.route("/day/:rDate")
 app.route("/sponsor")
   .post(async (req,res) => {
     try{
+      console.log("line 112");
       console.log(req.body);
       if(req.body.btnSave){
         const dayDetails = await Sponsor.findOne({rDate: req.body.inputRDate});
@@ -141,8 +148,14 @@ app.route("/sponsor")
           await newSponsor.save();
         }
       }
-      res.redirect("/");
-      console.log(dayDetails);
+      if(req.body.btnHome == "home"){
+        res.redirect("/");
+      }
+      else if (req.body.btnHome == "admin"){
+        res.redirect("/admin");
+      }
+      
+      //console.log(dayDetails);
     } catch (error) {
       console.log(error);
     }
